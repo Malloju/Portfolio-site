@@ -309,16 +309,13 @@ export default function Experience() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-24 relative left-[2cm]"
         >
-          <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wider mb-4" style={{ background: '#6c63ff15', color: '#6c63ff', textTransform: 'uppercase' }}>
+          <div className="text-center mb-[2cm]">
+            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wider mb-[2cm]" style={{ background: '#6c63ff15', color: '#6c63ff', textTransform: 'uppercase' }}>
               Problem Solving
             </span>
-            <h2 className="text-3xl font-bold mb-3" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-              Coding Profiles & <span className="gradient-text">Consistency</span>
+            <h2 className="text-3xl font-bold mb-[2cm]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+              Coding Profiles
             </h2>
-            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-              I treat consistency like a skill. Daily reps, clean thinking, better outcomes.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

@@ -79,7 +79,7 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
           </button>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center" style={{ gap: '3cm' }}>
             {navLinks.map((link) => (
               <button
                 key={link.href}
