@@ -13,7 +13,7 @@ export default function Projects() {
     <section id="projects" className="py-24 relative">
       <div className="orb w-80 h-80 top-0 right-0" style={{ background: 'rgba(244,114,182,0.1)' }} />
 
-      <div ref={ref} className="max-w-6xl mx-auto px-6">
+      <div ref={ref} className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24 relative left-[2cm]">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -26,7 +26,8 @@ export default function Projects() {
         </motion.div>
 
         {/* Project cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Project cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[3cm] w-full pl-[2cm]">
           {projects.map((project, i) => (
             <motion.div
               key={project.id}
@@ -35,7 +36,7 @@ export default function Projects() {
               transition={{ duration: 0.6, delay: i * 0.15 }}
               onMouseEnter={() => setHovered(project.id)}
               onMouseLeave={() => setHovered(null)}
-              className="animated-border relative overflow-hidden group"
+              className="animated-border relative overflow-hidden group flex flex-col"
               style={{
                 background: 'var(--bg-card)',
                 border: '1px solid var(--border-color)',
@@ -59,7 +60,7 @@ export default function Projects() {
                 />
               </div>
 
-              <div className="p-6">
+              <div className="p-6 sm:p-8">
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">

@@ -11,7 +11,7 @@ export const personalInfo = {
 };
 
 export const about = {
-  summary: "I'm a passionate Computer Science student specializing in AI & Machine Learning at Lovely Professional University. I love building intelligent systems, full-stack applications, and data-driven solutions. With hands-on experience in deep learning, MERN stack development, and data science, I strive to solve real-world problems through code. I participated in KPIT Sparkle 2025 and hold multiple industry certifications from Oracle & Infosys.",
+  summary: "I'm a passionate Computer Science student specializing in AI & Machine Learning at Lovely Professional University. I love building intelligent systems, full-stack applications, and data-driven solutions. With hands-on experience in deep learning, MERN stack development, and data science, I strive to solve real-world problems through code. I hold multiple industry certifications from Oracle & Infosys.",
 };
 
 export const skills = {
@@ -179,13 +179,4 @@ export const certifications = [
   },
 ];
 
-export const achievements = [
-  {
-    id: 1,
-    title: "KPIT Sparkle 2025",
-    description: "Participated in the KPIT Sparkle 2025 innovation competition — a prestigious national-level innovation challenge.",
-    date: "March 2025",
-    icon: "⚡",
-    color: "#f472b6",
-  },
-];
+export const achievements = [];

@@ -142,8 +142,6 @@ interface CertCardProps {
 }
 
 function CertCard({ cert, index, isInView }: CertCardProps) {
-  const [expanded, setExpanded] = useState(false);
-  const isPdf = cert.certificatePath?.endsWith('.pdf');
   const isImage = cert.certificateImage;
 
   return (
@@ -152,65 +150,72 @@ function CertCard({ cert, index, isInView }: CertCardProps) {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={isInView ? { opacity: 1, scale: 1 } : {}}
       transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
-      className="flex flex-col gap-2 p-3 sm:p-4 rounded-xl transition-all duration-300 hover:shadow-lg card"
+      className="flex flex-col bg-[#1A1C29] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg border border-gray-800"
     >
-      {/* Top row */}
-      <div className="flex items-start gap-3">
-        <div
-          className="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
-          style={{ background: `${cert.color}15`, border: `1px solid ${cert.color}25` }}
-        >
-          {cert.icon}
-        </div>
-        <div className="flex-1 min-w-0 mt-0.5">
-          <h4 className="text-xs font-bold leading-tight" style={{ color: 'var(--text-primary)' }}>{cert.title}</h4>
-          <p className="text-[10px] mt-0.5" style={{ color: 'var(--text-muted)' }}>{cert.issuer} • {cert.date}</p>
-        </div>
-      </div>
-
-      {/* Certificate preview */}
-      {isImage && (
-        <div className="rounded-lg overflow-hidden bg-white/5 dark:bg-black/20 flex items-center justify-center p-2 mb-1" style={{ border: `1px solid ${cert.color}30` }}>
+      {/* Certificate Image Top Block */}
+      {isImage ? (
+        <div className="relative w-full h-[220px] bg-white flex items-center justify-center px-6 py-4 border-b border-gray-800">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={cert.certificateImage!}
             alt={`${cert.title} certificate`}
-            className={`w-full object-contain transition-all duration-500 ${expanded ? 'h-auto max-h-[400px]' : 'h-[80px]'}`}
+            className="w-full h-full object-contain"
           />
+          {/* Badge Icon on top right */}
+          <div 
+            className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center shadow-lg"
+            style={{ background: '#232736', border: '1px solid rgba(255,255,255,0.1)' }}
+          >
+            <span className="text-xl">{cert.icon}</span>
+          </div>
+        </div>
+      ) : (
+        <div className="w-full h-[220px] bg-[#232736] flex items-center justify-center border-b border-gray-800 relative">
+          <span className="text-4xl opacity-50">{cert.icon}</span>
         </div>
       )}
 
-      {isPdf && expanded && (
-        <div className="rounded-xl overflow-hidden" style={{ border: `1px solid ${cert.color}30`, height: '320px' }}>
-          <iframe
-            src={cert.certificatePath!}
-            className="w-full h-full"
-            title={cert.title}
-          />
-        </div>
-      )}
+      {/* Content Block */}
+      <div className="p-6 flex flex-col flex-1">
+        <h4 className="text-[17px] font-bold text-white mb-6 leading-snug" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+          {cert.title}
+        </h4>
 
-      {/* Buttons row */}
-      <div className="flex gap-1.5 flex-wrap">
-        {cert.certificatePath && (
+        {/* Issuer Row */}
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-8 h-8 rounded bg-[#232736] flex items-center justify-center text-gray-400">
+            <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          </div>
+          <span className="text-sm font-medium text-gray-300">{cert.issuer}</span>
+        </div>
+
+        {/* Date Row */}
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-8 h-8 rounded bg-[#232736] flex items-center justify-center text-gray-400">
+            <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </div>
+          <span className="text-sm font-medium text-gray-300">{cert.date}</span>
+        </div>
+
+        {/* Spacer to push button down */}
+        <div className="flex-1"></div>
+
+        {/* Full-width Button */}
+        {cert.certificatePath ? (
           <a
             href={cert.certificatePath}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[10px] font-semibold px-2 py-1.5 rounded-md transition-all duration-200 hover:opacity-90"
-            style={{ background: `${cert.color}15`, color: cert.color, border: `1px solid ${cert.color}30` }}
+            className="w-full py-3 rounded-xl flex items-center justify-center gap-2 text-sm font-bold transition-all hover:bg-[#2b3040]"
+            style={{ background: '#232736', color: 'white' }}
           >
-            🔗 View
+            View Certificate
+            <FiExternalLink />
           </a>
-        )}
-        {(isPdf || isImage) && (
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="flex items-center gap-1 text-[10px] font-semibold px-2 py-1.5 rounded-md transition-all duration-200 hover:opacity-90"
-            style={{ background: 'var(--bg-secondary)', color: 'var(--text-secondary)', border: '1px solid var(--border-color)' }}
-          >
-            {expanded ? '▲ Collapse' : '▼ Preview'}
-          </button>
+        ) : (
+          <div className="w-full py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold text-gray-500 bg-[#232736]">
+             Not Available
+          </div>
         )}
       </div>
     </motion.div>
@@ -279,7 +284,7 @@ export default function Experience() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-20"
+          className="mt-20 relative left-[2cm]"
         >
           <div className="text-center mb-10">
             <p className="section-subheading mb-3">Credentials</p>
@@ -288,37 +293,13 @@ export default function Experience() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-[1.5cm]">
             {certifications.map((cert, i) => (
               <CertCard key={cert.id} cert={cert} index={i} isInView={isInView} />
             ))}
           </div>
 
-          {/* Achievements */}
-          {achievements.map((ach, i) => (
-            <motion.div
-              key={ach.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.9 + i * 0.1 }}
-              className="flex items-start gap-4 p-5 rounded-2xl card"
-              style={{ marginBottom: '0.8cm' }}
-            >
-              <div
-                className="w-11 h-11 rounded-2xl flex items-center justify-center text-xl flex-shrink-0"
-                style={{ background: `${ach.color}15`, border: `1px solid ${ach.color}25` }}
-              >
-                {ach.icon}
-              </div>
-              <div>
-                <div className="flex items-center gap-3 mb-1">
-                  <h4 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{ach.title}</h4>
-                  <span className="text-xs" style={{ color: 'var(--text-muted)', fontFamily: "'JetBrains Mono', monospace" }}>{ach.date}</span>
-                </div>
-                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{ach.description}</p>
-              </div>
-            </motion.div>
-          ))}
+          {/* Achievements block removed */}
         </motion.div>
 
         {/* Coding Profiles & Consistency */}
@@ -326,7 +307,7 @@ export default function Experience() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-24"
+          className="mt-24 relative left-[2cm]"
         >
           <div className="text-center mb-12">
             <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-wider mb-4" style={{ background: '#6c63ff15', color: '#6c63ff', textTransform: 'uppercase' }}>

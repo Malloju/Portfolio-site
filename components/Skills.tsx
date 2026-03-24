@@ -107,7 +107,7 @@ export default function Skills() {
     <section id="skills" className="py-24 relative" style={{ background: '#030712' }}>
       <div className="orb w-80 h-80 bottom-0 left-0" style={{ background: 'rgba(108,99,255,0.12)' }} />
 
-      <div ref={ref} className="max-w-6xl mx-auto px-6">
+      <div ref={ref} className="max-w-6xl mx-auto px-6 relative left-[2cm]">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

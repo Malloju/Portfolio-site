@@ -44,7 +44,7 @@ export default function Contact() {
       <div className="orb w-80 h-80 bottom-0 left-1/4" style={{ background: 'rgba(108,99,255,0.15)' }} />
       <div className="orb w-64 h-64 top-1/4 right-1/4" style={{ background: 'rgba(34,211,238,0.1)' }} />
 
-      <div ref={ref} className="max-w-6xl mx-auto px-6">
+      <div ref={ref} className="max-w-6xl mx-auto px-6 relative left-[2cm]">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
